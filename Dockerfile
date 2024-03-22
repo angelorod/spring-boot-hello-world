@@ -1,4 +1,4 @@
-FROM maven:3-eclipse-temurin-17-alpine as builder
+FROM maven:3.8.3-openjdk-17 as builder
 
 # Copy local code to the container image.
 WORKDIR /app
@@ -8,7 +8,7 @@ COPY src ./src
 
 RUN mvn package -DskipTests
 
-FROM eclipse-temurin:17.0.9_9-jre-alpine
+FROM openjdk:11
 
 COPY --from=builder /app/target/spring*.jar /spring-web-sample.jar
 
